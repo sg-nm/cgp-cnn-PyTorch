@@ -19,7 +19,7 @@ We use the [PyTorch](https://pytorch.org/) framework for neural networks and tes
 ## Usage
 
 ### Run the architecture search
-This code can reproduce the experiment for CIFAR-10 dataset with the same setting of the GECCO 2017 paper (by default scenario). The (training) data are split into the training and validation data. The validation data are used for assigning the fitness to the generated architectures. We use the maximum validation accuracy in the last 10 epochs as the fitness value.
+This code can reproduce the experiment for CIFAR-10 dataset with the same setting of the GECCO 2017 paper (by default scenario). The (training) data are split into the training and validation data. The validation data are used for assigning the fitness to the generated architectures.
 
 When you use the multiple GPUs, please specify the `-g` option:
 
