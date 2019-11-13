@@ -191,7 +191,7 @@ class CNN_train():
                     traceback.print_exc()
                     return 0.
                 loss = criterion(output, label_)
-                train_loss += loss.data[0]
+                train_loss += loss.item()
                 loss.backward()
                 optimizer.step()
                 _, predicted = torch.max(output.data, 1)
