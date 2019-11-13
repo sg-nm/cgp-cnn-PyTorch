@@ -36,10 +36,10 @@ def weights_init_normal(m):
     if classname.find('Conv2d') != -1:
         m.apply(weights_init_normal_)
     elif classname.find('Linear') != -1:
-        init.uniform(m.weight.data, 0.0, 0.02)
+        init.uniform_(m.weight.data, 0.0, 0.02)
     elif classname.find('BatchNorm2d') != -1:
-        init.uniform(m.weight.data, 1.0, 0.02)
-        init.constant(m.bias.data, 0.0)
+        init.uniform_(m.weight.data, 1.0, 0.02)
+        init.constant_(m.bias.data, 0.0)
 
 def weights_init_normal_(m):
     classname = m.__class__.__name__
