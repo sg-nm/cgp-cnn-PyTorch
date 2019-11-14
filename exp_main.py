@@ -18,6 +18,7 @@ if __name__ == '__main__':
     parser.add_argument('--net_info_file', default='network_info.pickle', help='Network information file name')
     parser.add_argument('--log_file', default='./log_cgp.txt', help='Log file name')
     parser.add_argument('--mode', '-m', default='evolution', help='Mode (evolution / retrain / reevolution)')
+    parser.add_argument('--max_eval', '-e', default=250, help='Num. of max evaluations')
     parser.add_argument('--init', '-i', action='store_true')
     args = parser.parse_args()
 

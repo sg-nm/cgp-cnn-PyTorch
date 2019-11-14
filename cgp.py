@@ -319,6 +319,11 @@ class CGP(object):
                 else:
                     self.pop[0].neutral_mutation(mutation_rate)  # modify the parent (neutral mutation)
 
+                temp_f = open('fitness.txt', 'a')
+                temp_writer = csv.writer(temp_f, lineterminator='\n')
+                temp_writer.writerow(self.pop[0].eval)
+                temp_f.close()
+
                 # display and save log
                 print(self._log_data(net_info_type='active_only', start_time=start_time))
                 fw = open(log_file, 'a')
