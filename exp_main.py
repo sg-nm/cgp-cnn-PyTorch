@@ -13,7 +13,7 @@ from cnn_train import CNN_train
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Evolving CAE structures')
-    parser.add_argument('--gpu_num', '-g', type=int, default=1, help='Num. of GPUs')
+    parser.add_argument('--gpu_ids', '-g', type=int, nargs='+', default=[0], help='List of GPU ids')
     parser.add_argument('--lam', '-l', type=int, default=2, help='Num. of offsprings')
     parser.add_argument('--net_info_file', default='network_info.pickle', help='Network information file name')
     parser.add_argument('--log_file', default='./log_cgp.txt', help='Log file name')
@@ -30,7 +30,7 @@ if __name__ == '__main__':
             pickle.dump(network_info, f)
         # Evaluation function for CGP (training CNN and return validation accuracy)
         imgSize = 32
-        eval_f = CNNEvaluation(gpu_num=args.gpu_num, dataset='cifar10', verbose=True, epoch_num=50, batchsize=128, imgSize=imgSize)
+        eval_f = CNNEvaluation(gpu_ids=args.gpu_ids, dataset='cifar10', verbose=True, epoch_num=50, batchsize=128, imgSize=imgSize)
 
         # Execute evolution
         cgp = CGP(network_info, eval_f, lam=args.lam, imgSize=imgSize, init=args.init)
@@ -64,7 +64,7 @@ if __name__ == '__main__':
         imgSize = 64
         with open('network_info.pickle', mode='rb') as f:
             network_info = pickle.load(f)
-        eval_f = CNNEvaluation(gpu_num=args.gpu_num, dataset='cifar10', verbose=True, epoch_num=50, batchsize=128, imgSize=imgSize)
+        eval_f = CNNEvaluation(gpu_ids=args.gpu_ids, dataset='cifar10', verbose=True, epoch_num=50, batchsize=128, imgSize=imgSize)
         cgp = CGP(network_info, eval_f, lam=args.lam, imgSize=imgSize)
 
         data = pd.read_csv('./log_cgp.txt', header=None)

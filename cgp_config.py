@@ -36,8 +36,9 @@ def cnn_eval(net, gpu_id, epoch_num, batchsize, dataset, verbose, imgSize):
 
 
 class CNNEvaluation(object):
-    def __init__(self, gpu_num, dataset='cifar10', verbose=True, epoch_num=50, batchsize=16, imgSize=32):
-        self.gpu_num = gpu_num
+    def __init__(self, gpu_ids, dataset='cifar10', verbose=True, epoch_num=50, batchsize=16, imgSize=32):
+        self.gpu_num = len(gpu_ids)
+        self.gpu_ids = gpu_ids
         self.epoch_num = epoch_num
         self.batchsize = batchsize
         self.dataset = dataset
@@ -49,7 +50,7 @@ class CNNEvaluation(object):
         for i in np.arange(0, len(net_lists), self.gpu_num):
             process_num = np.min((i + self.gpu_num, len(net_lists))) - i
             pool = NoDaemonProcessPool(process_num)
-            arg_data = [(cnn_eval, net_lists[i+j], j, self.epoch_num, self.batchsize, self.dataset, self.verbose, self.imgSize) for j in range(process_num)]
+            arg_data = [(cnn_eval, net_lists[i+j], self.gpu_ids[j], self.epoch_num, self.batchsize, self.dataset, self.verbose, self.imgSize) for j in range(process_num)]
             evaluations[i:i+process_num] = pool.map(arg_wrapper_mp, arg_data)
             pool.terminate()
 
